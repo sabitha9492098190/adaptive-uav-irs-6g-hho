@@ -1,0 +1,12 @@
+CL-HHO METRICS REPORT
+Physical Layer Average SINR (dB) : 17.1
+BER @ 30 dBm : 9.4 × 10⁻⁶
+Outage Probability : 0.21
+System Layer End-to-End Latency (ms): 31.932563
+Throughput (Mbps) : 9.4343
+Packet Delivery Ratio (%) : 88.734
+Learning Layer Final Model Accuracy : 0.9745
+Convergence Rounds : 18
+Fairness Index (Jain) : 0.93
+Energy Layer Avg. Energy per FL Round (J) : 780
+Energy Efficiency (Accuracy/J) : 1.19 × 10⁻³
