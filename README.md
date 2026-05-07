@@ -7,12 +7,40 @@ The rapid evolution toward sixth-generation (6G) wireless communication demands 
 However, existing studies typically rely on idealized channel assumptions—perfect CSI, static propagation, zero hardware impairments, and negligible mobility effects—which significantly limits their practicality in real 6G deployments involving high-speed vehicles and intermittent links. Furthermore, current optimization frameworks rarely couple physical-layer dynamics with system-layer constraints and learning-layer behaviors, leading to inefficient resource use and degraded FL performance under realistic conditions.
 
 
+## Dataset
+
+The code uses the **Next Generation Simulation (NGSIM) Vehicle Trajectories and Supporting Data** dataset, specifically the CSV file `Next_Generation_Simulation__NGSIM__Vehicle_Trajectories_and_Supporting_Data_20240120.csv` located in the `Dataset/` folder. This dataset provides real-world vehicle trajectory data collected from highways (e.g., US-101, I-80, Lankershim, Peachtree).
+
+### Dataset Usage
+
+- **Mobility Source**: Vehicle positions, speeds, accelerations, lane IDs, and headway information are extracted to simulate realistic vehicular mobility in the FL network.
+- **FL Task Creation**: Each vehicle's trajectory is segmented into sequential windows of vehicle states (e.g., 20 frames of data). The task is **binary lane-change prediction**: predicting whether the vehicle will change lanes within the next prediction horizon (e.g., 20 frames).
+- **Client Generation**: Vehicles with sufficient trajectory length are treated as FL clients, each with local datasets derived from their own driving patterns.
+- **Road Geometry**: The dataset includes location-specific road layouts (e.g., US-101 with multiple lanes) used for UAV positioning and IRS placement.
+
+The code couples this mobility data with:
+
+- dynamic UAV placement
+- IRS-assisted link modeling with quantized phase shifts and reconfiguration delay
+- mobility-induced Doppler and channel aging
+- communication-aware client selection
+- Harris Hawk Optimization for cross-layer control
+
+## What the code learns
+
+The federated task is binary lane-change prediction:
+
+- input: a sequence of recent NGSIM vehicle states (13 features per frame, including position, speed, lane, headway, etc.)
+- target: whether the vehicle changes lane within the prediction horizon
+
+Each vehicle is treated as an FL client with local sequential data generated from its own trajectory.
+
+
 ## Project Structure
 
 ```
 .
 ├── README.md                          # This file
-├── Dataset_info.txt                   # Dataset documentation
 ├── run_experiment.py                  # Main experiment runner
 ├── Graph.py                           # Visualization module
 ├── Dataset/
@@ -71,11 +99,4 @@ Execute the main experiment runner:
 ```bash
 python run_experiment.py
 ```
-
-This will:
-1. Load and preprocess NGSIM vehicle trajectory data
-2. Generate FL clients from vehicle trajectories
-3. Run CL-HHO optimization for UAV placement, IRS configuration, and FL scheduling
-4. Execute federated learning with realistic channel conditions
-5. Generate performance metrics and visualizations
 
