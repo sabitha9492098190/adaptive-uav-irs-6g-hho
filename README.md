@@ -49,7 +49,7 @@ However, existing studies typically rely on idealized channel assumptions—perf
 
 1. **Clone/Extract the Repository**:
    ```bash
-   cd d:\ancy1\J_prof_Sabeetha_Manoj_ver_1_10-12-2025
+   cd https://github.com/sabitha9492098190/adaptive-uav-irs-6g-hho.git
    ```
 
 2. **Install Dependencies**:
